@@ -28,9 +28,10 @@ const Home = () => (
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        font-family: Roboto;
       }
       .row {
-        max-width: 880px;
+        width: 600px;
         height: 100px;
         display: flex;
         flex-direction: row;
@@ -41,9 +42,14 @@ const Home = () => (
       }
 
       .button {
-        width: 100px;
+        border: 0px;
+        border-radius: 2px;
+        margin-top: 20px;
+        width: 200px;
+        height: 30px;
+        background: #e50914;
         color: white;
-        background: red;
+        text-transform: uppercase;
       }
       label {
         width: 50px;
