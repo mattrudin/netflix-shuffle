@@ -1,23 +1,25 @@
 import React from 'react'
 import Head from '../components/head'
 import SearchBar from '../components/searchBar'
-import unirest from 'unirest'
+import { getAllGenreID, getGenreTags } from '../utilities/utilities'
 
 class Home extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      
+      genreTags: [],
     }
   }
 
-  componentDidMount() {
-    unirest.get("https://unogs-unogs-v1.p.mashape.com/api.cgi?t=genres")
-      .header("X-Mashape-Key", "key")
-      .header("Accept", "application/json")
-      .end(result => {
-        console.log(result.body);
-      });
+  async componentDidMount() {
+    const genres = await getAllGenreID()
+    this.setState({
+      genreTags: genres
+    }, ()=>console.log(genres))
+    /* const genreTags = await getGenreTags()
+    this.setState({
+      genreTags
+    }) */
   }
 
   render() {
