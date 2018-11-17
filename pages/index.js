@@ -1,6 +1,7 @@
 import React from 'react'
 import Head from '../components/head'
 import SearchBar from '../components/searchBar'
+import unirest from 'unirest'
 
 class Home extends React.Component {
   constructor(props) {
