@@ -6,10 +6,12 @@
     "start": "next start"
   },
   "dependencies": {
+    "net": "^1.0.2",
     "next": "7.0.2",
     "react": "16.6.0",
     "react-dom": "16.6.0",
     "react-select": "^2.1.1",
+    "tls": "0.0.1",
     "unirest": "^0.5.1"
   }
 }

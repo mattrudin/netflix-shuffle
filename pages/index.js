@@ -10,6 +10,16 @@ class Home extends React.Component {
       
     }
   }
+
+  componentDidMount() {
+    unirest.get("https://unogs-unogs-v1.p.mashape.com/api.cgi?t=genres")
+      .header("X-Mashape-Key", "key")
+      .header("Accept", "application/json")
+      .end(result => {
+        console.log(result.body);
+      });
+  }
+
   render() {
     return(
       <div className="app">
