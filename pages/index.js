@@ -1,7 +1,7 @@
 import React from 'react'
 import Head from '../components/head'
 import SearchBar from '../components/searchBar'
-import { getGenreTags } from '../utilities/utilities'
+import { getGenreTags, getGenreIDs } from '../utilities/utilities'
 import unirest from 'unirest'
 import { key } from '../.env_key'
 
@@ -10,6 +10,7 @@ class Home extends React.Component {
     super(props)
     this.state = {
       genreTags: [],
+      genreIDs: []
     }
   }
 
@@ -18,12 +19,13 @@ class Home extends React.Component {
       .header("X-Mashape-Key", key)
       .header("Accept", "application/json")
       .end((response) => {this.setState({
-        genreTags: getGenreTags(response.body["ITEMS"])
+        genreTags: getGenreTags(response.body["ITEMS"]),
+        genreIDs: getGenreIDs(response.body["ITEMS"])
       })});
   }
 
-  handleClick = () => {
-    console.log(this.state.genreTags);
+  handleGenreChange = (selectedOption) => {
+    this.setState({ selectedOption });
   }
 
   render() {
@@ -31,7 +33,8 @@ class Home extends React.Component {
       <div className="app">
       <Head title="Netflix Shuffle" />
         <SearchBar />
-        <button onClick={this.handleClick}>Console log</button>
+        <button onClick={()=> console.log(this.state.genreTags)}>GenreTags</button>
+        <button onClick={()=> console.log(this.state.genreIDs)}>GenreIDs</button>
         <style jsx global>{`
           body {
             margin: 0;
