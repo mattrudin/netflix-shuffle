@@ -2,14 +2,25 @@ import unirest from 'unirest'
 import { key } from '../.env_key'
 
 export async function getAllGenreID() {
-    let data = await unirest.get("https://unogs-unogs-v1.p.mashape.com/api.cgi?t=genres")
+    let data = unirest.get("https://unogs-unogs-v1.p.mashape.com/api.cgi?t=genres")
       .header("X-Mashape-Key", key)
       .header("Accept", "application/json")
-      .end(result => {
-          return result.body.ITEMS
-      }
-    )
-    return data
+      .end();
+    return data;
+}
+
+export async function fetchGenreID() {
+    let data;
+    const url = "https://unogs-unogs-v1.p.mashape.com/api.cgi?t=genres";
+    const reqHeader = new Headers({
+        'X-Mashape-Key': key,
+        'Accept': 'application/json'
+    });
+    const initObject = {
+        method: 'GET', headers: reqHeader,
+    };
+    data = await fetch(url, initObject).then(response => console.log(response.body));
+    return data;
 }
 
 const getRelevantGenreID = array => (

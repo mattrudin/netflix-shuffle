@@ -1,7 +1,7 @@
 import React from 'react'
 import Head from '../components/head'
 import SearchBar from '../components/searchBar'
-import { getAllGenreID, getGenreTags } from '../utilities/utilities'
+import { getAllGenreID, getGenreTags, fetchGenreID } from '../utilities/utilities'
 
 class Home extends React.Component {
   constructor(props) {
@@ -12,14 +12,18 @@ class Home extends React.Component {
   }
 
   async componentDidMount() {
-    const genres = await getAllGenreID()
+    const genres = await fetchGenreID();
     this.setState({
       genreTags: genres
-    }, ()=>console.log(genres))
+    }, ()=>console.log("from index.js",this.state.genreTags));
     /* const genreTags = await getGenreTags()
     this.setState({
       genreTags
     }) */
+  }
+
+  handleClick = () => {
+    console.log(this.state.genreTags);
   }
 
   render() {
@@ -27,7 +31,7 @@ class Home extends React.Component {
       <div className="app">
       <Head title="Netflix Shuffle" />
         <SearchBar />
-    
+        <button onClick={this.handleClick}>Console log</button>
         <style jsx global>{`
           body {
             margin: 0;
