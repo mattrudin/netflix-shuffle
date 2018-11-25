@@ -1,7 +1,9 @@
 import React from 'react'
 import Head from '../components/head'
 import SearchBar from '../components/searchBar'
-import { getAllGenreID, getGenreTags, fetchGenreID } from '../utilities/utilities'
+import { getGenreTags } from '../utilities/utilities'
+import unirest from 'unirest'
+import { key } from '../.env_key'
 
 class Home extends React.Component {
   constructor(props) {
@@ -11,15 +13,13 @@ class Home extends React.Component {
     }
   }
 
-  async componentDidMount() {
-    const genres = await fetchGenreID();
-    this.setState({
-      genreTags: genres
-    }, ()=>console.log("from index.js",this.state.genreTags));
-    /* const genreTags = await getGenreTags()
-    this.setState({
-      genreTags
-    }) */
+  componentDidMount() {
+    unirest.get("https://unogs-unogs-v1.p.mashape.com/api.cgi?t=genres")
+      .header("X-Mashape-Key", key)
+      .header("Accept", "application/json")
+      .end((response) => {this.setState({
+        genreTags: getGenreTags(response.body["ITEMS"])
+      })});
   }
 
   handleClick = () => {
