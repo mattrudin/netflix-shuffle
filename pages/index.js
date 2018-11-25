@@ -1,7 +1,7 @@
 import React from 'react'
 import Head from '../components/head'
 import SearchBar from '../components/searchBar'
-import { getGenreTags, getGenreIDs } from '../utilities/utilities'
+import { getGenreTags, getGenreIDs, createGenreOptions } from '../utilities/utilities'
 import unirest from 'unirest'
 import { key } from '../.env_key'
 
@@ -10,7 +10,8 @@ class Home extends React.Component {
     super(props)
     this.state = {
       genreTags: [],
-      genreIDs: []
+      genreIDs: [],
+      genreOptions: [],
     }
   }
 
@@ -20,7 +21,8 @@ class Home extends React.Component {
       .header("Accept", "application/json")
       .end((response) => {this.setState({
         genreTags: getGenreTags(response.body["ITEMS"]),
-        genreIDs: getGenreIDs(response.body["ITEMS"])
+        genreIDs: getGenreIDs(response.body["ITEMS"]),
+        genreOptions: createGenreOptions(this.state.genreIDs, this.state.genreTags),
       })});
   }
 
@@ -35,6 +37,7 @@ class Home extends React.Component {
         <SearchBar />
         <button onClick={()=> console.log(this.state.genreTags)}>GenreTags</button>
         <button onClick={()=> console.log(this.state.genreIDs)}>GenreIDs</button>
+        <button onClick={()=> console.log(this.state.genreOptions)}>GenreIDs</button>
         <style jsx global>{`
           body {
             margin: 0;

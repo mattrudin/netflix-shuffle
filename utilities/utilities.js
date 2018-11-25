@@ -14,3 +14,14 @@ export function getGenreTags(array) {
 export function getGenreIDs(array) {
     return Object.values(array.slice(0,19).map(genre => Object.values(genre)))
 }
+
+export function createGenreOptions(values, labels) {
+    let data = [];
+    for (let i = 0; i <= values.length; i++) {
+        data.push({
+            value: values[i],
+            label: labels[i]
+        })
+    }
+    return data
+}
